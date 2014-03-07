@@ -14,5 +14,9 @@ module Blog
     def self.find_post_by_id(id)
       Post.find(id)
     end
+
+    def self.find_all_posts
+      Post.all
+    end
   end
 end
