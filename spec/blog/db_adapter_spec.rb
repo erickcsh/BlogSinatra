@@ -53,3 +53,21 @@ describe Blog::DBAdapter, ".find_post_by_id" do
   end
 end
 
+describe Blog::DBAdapter, ".find_all_posts" do
+  subject { described_class }
+
+  before do
+    @id1 = subject.new_post(A_TITLE, A_CONTENT)
+    @id2 = subject.new_post(A_TITLE, A_CONTENT)
+  end
+
+  after do
+    subject.delete_post(@id1)
+    subject.delete_post(@id2)
+  end
+
+  it "selects all ths posts" do
+    post = subject.find_all_posts
+    expect(post.size).to eq(2)
+  end
+end
