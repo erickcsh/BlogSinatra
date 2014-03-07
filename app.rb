@@ -1,4 +1,7 @@
 require 'sinatra'
-require 'sinatra/activerecord'
-require './config/enviroments'
-require './models/post'
+require_relative 'lib/blog'
+
+get "/" do
+
+end
+

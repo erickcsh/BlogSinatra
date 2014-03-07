@@ -1,0 +1,5 @@
+require_relative 'blog/db_adapter'
+require 'sinatra'
+require 'sinatra/activerecord'
+require_relative '../config/enviroments'
+require_relative '../models/post'

@@ -1,25 +1,18 @@
-require 'constants'
-require 'blog/db_adapter'
+module Blog
+  module DBAdapter
 
-describe Blog::DBAdapter, ".new_post" do
-  subject { described_class }
+    def self.new_post(title, body)
+      post = Post.new(title: title, body: body)
+      post.save
+      post.id
+    end
 
-  before do
-    post = subject.new_post(A_TITLE, A_CONTENT)
-    @id = post.id
-  end
+    def self.delete_post(id)
+      Post.delete(id)
+    end
 
-  after do
-    subject.delete_post(@id)
-  end
-
-  it "adds a new post with the expected title" do
-    post = subject.find_post_by_id(@id)
-    expect(post.title).to eq(A_TITLE)
-  end
-
-  it "adds a new post with the expected content" do
-    post = subject.find_post_by_id(@id)
-    expect(post.content).to eq(A_CONTENT)
+    def self.find_post_by_id(id)
+      Post.find(id)
+    end
   end
 end
