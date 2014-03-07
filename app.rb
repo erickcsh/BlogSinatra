@@ -7,9 +7,11 @@ get "/" do
 end
 
 def posts_html
-  if(@posts.empty?) then erb :instructions_post
-  else posts_body
-  end
+  @posts.empty? ? instructions_body : posts_body
+end
+
+def instructions_body
+  erb :instructions_post
 end
 
 def posts_body
@@ -20,5 +22,16 @@ def posts_body
 end
 
 def sidebar_html
+  @posts.empty? ? instructions_sidebar : posts_sidebar
+end
+
+def instructions_sidebar
   erb :instructions_sidebar
+end
+
+def posts_sidebar
+  @posts.reduce('') do |content, post|
+    @post = post
+    content << (erb :posts_sidebar)
+  end
 end
