@@ -36,3 +36,20 @@ describe Blog::DBAdapter, ".delete_post" do
   end
 end
 
+describe Blog::DBAdapter, ".find_post_by_id" do
+  subject { described_class }
+
+  before do
+    @id = subject.new_post(A_TITLE, A_CONTENT)
+  end
+
+  after do
+    subject.delete_post(@id)
+  end
+
+  it "selects the post with the id" do
+    post = subject.find_post_by_id(@id)
+    expect(post.title).to eq(A_TITLE)
+  end
+end
+
