@@ -1,4 +1,5 @@
 require_relative 'blog/db_adapter'
+require_relative 'blog/post_manager'
 require 'sinatra'
 require 'sinatra/activerecord'
 require_relative '../config/enviroments'
