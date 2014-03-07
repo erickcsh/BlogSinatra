@@ -31,5 +31,15 @@ describe "Index page" do
       get '/'
       expect(last_response.body).to include(POST_SLICE_TITLE)
     end
+
+    it "shows the post body" do
+      get '/'
+      expect(last_response.body).to include(POST_SLICE_BODY)
+    end
+
+    it "shows the post date" do
+      get '/'
+      expect(last_response.body).to include(POST_SLICE_DATE)
+    end
   end
 end
