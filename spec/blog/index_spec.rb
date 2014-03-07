@@ -41,5 +41,10 @@ describe "Index page" do
       get '/'
       expect(last_response.body).to include(POST_SLICE_DATE)
     end
+
+    it "shows the post sidebar" do
+      get '/'
+      expect(last_response.body).to include(POST_SIDEBAR_SLICE)
+    end
   end
 end
