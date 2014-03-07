@@ -5,8 +5,7 @@ describe Blog::DBAdapter, ".new_post" do
   subject { described_class }
 
   before do
-    post = subject.new_post(A_TITLE, A_CONTENT)
-    @id = post
+    @id = subject.new_post(A_TITLE, A_CONTENT)
   end
 
   after do
@@ -23,3 +22,17 @@ describe Blog::DBAdapter, ".new_post" do
     expect(post.body).to eq(A_CONTENT)
   end
 end
+
+describe Blog::DBAdapter, ".delete_post" do
+  subject { described_class }
+
+  before do
+    @id = subject.new_post(A_TITLE, A_CONTENT)
+  end
+
+  it "deletes the post with the id" do
+    subject.delete_post(@id)
+    expect { subject.find_post_by_id(@id) }.to raise_error
+  end
+end
+
