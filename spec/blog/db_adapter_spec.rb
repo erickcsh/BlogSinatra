@@ -66,8 +66,28 @@ describe Blog::DBAdapter, ".find_all_posts" do
     subject.delete_post(@id2)
   end
 
-  it "selects all ths posts" do
+  it "selects all the posts" do
     post = subject.find_all_posts
     expect(post.size).to eq(2)
+  end
+end
+
+describe Blog::DBAdapter, ".find_all_posts_ordered_by" do
+  subject { described_class }
+
+  before do
+    @id1 = subject.new_post(A_TITLE, A_CONTENT)
+    @id2 = subject.new_post(A_TITLE, A_CONTENT)
+  end
+
+  after do
+    subject.delete_post(@id1)
+    subject.delete_post(@id2)
+  end
+
+  it "selects all the posts ordered by created date descendant" do
+    post = subject.find_all_posts_ordered_by('created_at', 'DESC')
+    expect(post[0].id).to eq(@id2)
+    expect(post[1].id).to eq(@id2)
   end
 end
