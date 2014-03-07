@@ -5,7 +5,7 @@ describe Blog::PostManager, ".manage_post" do
   subject { described_class }
 
   context "when action = #{SAVE}" do
-    let(:params) { { action: SAVE, title: A_TITLE, body: A_BODY} }
+    let(:params) { { id: EMPTY_ID, action: SAVE, title: A_TITLE, body: A_BODY} }
 
     after do
       subject.manage_post(params)
@@ -18,7 +18,11 @@ describe Blog::PostManager, ".manage_post" do
     end
 
     context "when the post is being edited" do
+      let(:params) { { id: AN_ID, action: SAVE, title: ANOTHER_TITLE, body: ANOTHER_BODY} }
 
+      it "edits a post" do
+        expect(Blog::DBAdapter).to receive(:edit_post).with(NEW_VALUES)
+      end
     end
   end
 

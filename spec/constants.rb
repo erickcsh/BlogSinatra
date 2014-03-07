@@ -7,3 +7,4 @@ CANCEL = 'Cancel'
 SAVE = 'Save'
 DELETE = 'Delete'
 AN_ID = 1
+EMPTY_ID = ''
