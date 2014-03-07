@@ -2,7 +2,11 @@ require_relative '../spec_helper'
 require 'constants'
 
 describe "Index page" do
+  before { allow(Blog::DBAdapter).to receive(:find_all_posts_ordered_by) { posts } }
+
   context "when there are no posts" do
+    let(:posts) { [] }
+
     it "displays the Instructions post" do
       get '/'
       expect(last_response.body).to include(INSTRUCTIONS_POST_SLICE)
@@ -17,10 +21,6 @@ describe "Index page" do
   context "when there are posts" do
     let(:post) { double(:post, id: AN_ID, title: A_TITLE, body: A_BODY, created_at: A_DATE) }
     let(:posts) { [post] }
-
-    before do
-      allow(Blog::DBAdapter).to receive(:find_all_posts_ordered_by) { posts }
-    end
 
     it "hides the post id" do
       get '/'
