@@ -1,9 +1,9 @@
-<div id="<%= key %>" class="post">
+<div id="<%= @post.id %>" class="post">
   <form action="/post" method="POST">
-    <input type="hidden" name="id" value="<%= key %>"/>
+    <input type="hidden" name="id" value="<%= @post.id %>"/>
     <button> <p>Edit</p> </button>
   </form>
-  <h3 class="name"><%= value[:name] %></h3>
-  <h4 class="date"><%= value[:date] %></h4>
-  <p class="content"><%= value[:content] %></p>
+  <h3 class="name"><%= @post.title %></h3>
+  <h4 class="date"><%= @post.created_at %></h4>
+  <p class="content"><%= @post.body %></p>
 </div> <!--#post -->

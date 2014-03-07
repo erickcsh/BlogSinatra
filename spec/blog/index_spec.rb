@@ -13,4 +13,18 @@ describe "Index page" do
       expect(last_response.body).to include(INSTRUCTIONS_SIDEBAR_SLICE)
     end
   end
+
+  context "when there are posts" do
+    let(:post) { double(:post, id: AN_ID, title: A_TITLE, body: A_BODY, created_at: A_DATE) }
+    let(:posts) { [post] }
+
+    before do
+      allow(Blog::DBAdapter).to receive(:find_all_posts_ordered_by) { posts }
+    end
+
+    it "hides the post id" do
+      get '/'
+      expect(last_response.body).to include(POST_SILCE_ID)
+    end
+  end
 end
