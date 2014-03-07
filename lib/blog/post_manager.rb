@@ -5,7 +5,16 @@ module Blog
     CANCEL = 'Cancel'
 
     def self.manage_post(params)
-      DBAdapter.delete_post(params[:id]) if params[:action] == DELETE
+       delete(params) if delete_action?(params)
+    end
+
+    private
+    def self.delete(params)
+      DBAdapter.delete_post(params[:id])
+    end
+
+    def self.delete_action?(params)
+      params[:action] == DELETE
     end
   end
 end
