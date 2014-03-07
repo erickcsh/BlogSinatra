@@ -8,3 +8,7 @@ SAVE = 'Save'
 DELETE = 'Delete'
 AN_ID = 1
 EMPTY_ID = ''
+INSTRUCTIONS_POST_SLICE = '<div id="instructions" class="post">'
+INSTRUCTIONS_SIDEBAR_SLICE = ''
+POST_SILCE = ''
+POST_SIDEBAR_SLICE = ''

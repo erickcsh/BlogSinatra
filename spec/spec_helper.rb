@@ -1,6 +1,6 @@
 require 'rack/test'
 
-require File.expand_path '../../my-app.rb', __FILE__
+require_relative '../app.rb'
 
 module RSpecMixin
     include Rack::Test::Methods
