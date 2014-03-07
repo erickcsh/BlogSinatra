@@ -26,5 +26,10 @@ describe "Index page" do
       get '/'
       expect(last_response.body).to include(POST_SILCE_ID)
     end
+
+    it "shows the post title" do
+      get '/'
+      expect(last_response.body).to include(POST_SLICE_TITLE)
+    end
   end
 end
