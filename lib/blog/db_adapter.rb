@@ -22,5 +22,9 @@ module Blog
     def self.find_all_posts_ordered_by(column, order = 'DESC')
       find_all_posts.order("#{column} #{order}")
     end
+
+    def self.edit_post(id, new_values)
+      Post.find(id).update(new_values)
+    end
   end
 end

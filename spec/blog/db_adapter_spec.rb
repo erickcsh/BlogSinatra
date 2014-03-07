@@ -104,7 +104,8 @@ describe Blog::DBAdapter, ".edit_post" do
   end
 
   it "edits the post's title and body" do
-    post = subject.edit_post(@id)
+    subject.edit_post(@id, NEW_VALUES)
+    post = subject.find_post_by_id(@id)
     expect(post.title).to eq(ANOTHER_TITLE)
     expect(post.body).to eq(ANOTHER_BODY)
   end
