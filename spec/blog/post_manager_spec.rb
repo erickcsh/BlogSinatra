@@ -9,7 +9,7 @@ describe Blog::PostManager, ".manage_post" do
   end
 
   context "when action = #{CANCEL}" do
-    let(:params) { double(:params, action: CANCEL).as_null_object }
+    let(:params) { { action: CANCEL } }
 
     it "does nothing" do
       expect(subject.manage_post(params)).to eq(nil)
@@ -17,7 +17,7 @@ describe Blog::PostManager, ".manage_post" do
   end
 
   context "when action = #{DELETE}" do
-    let(:params) { double(:params, action: DELETE, id: AN_ID).as_null_object }
+    let(:params) { { action: DELETE, id: AN_ID } }
 
     it "deletes the post" do
       expect(Blog::DBAdapter).to receive(:delete_post).with(AN_ID)
