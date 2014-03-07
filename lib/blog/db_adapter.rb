@@ -18,5 +18,9 @@ module Blog
     def self.find_all_posts
       Post.all
     end
+
+    def self.find_all_posts_ordered_by(column, order = 'DESC')
+      find_all_posts.order("#{column} #{order}")
+    end
   end
 end

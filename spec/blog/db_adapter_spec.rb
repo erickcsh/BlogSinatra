@@ -86,8 +86,8 @@ describe Blog::DBAdapter, ".find_all_posts_ordered_by" do
   end
 
   it "selects all the posts ordered by created date descendant" do
-    post = subject.find_all_posts_ordered_by('created_at', 'DESC')
+    post = subject.find_all_posts_ordered_by('created_at')
     expect(post[0].id).to eq(@id2)
-    expect(post[1].id).to eq(@id2)
+    expect(post[1].id).to eq(@id1)
   end
 end
