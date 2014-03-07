@@ -19,7 +19,10 @@ module Blog
     end
 
     def self.save(params)
-      DBAdapter.new_post(params[:title], params[:body])
+      id = params[:id]
+      if id == '' || id == nil then DBAdapter.new_post(params[:title], params[:body])
+      else DBAdapter.edit_post(title: params[:title], body: params[:body])
+      end
     end
 
     def self.save_action?(params)
