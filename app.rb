@@ -6,6 +6,24 @@ get "/" do
   erb :index
 end
 
+post "/post" do
+  post_form_action(params)
+end
+
+get "/post" do
+  post_form_action(params)
+end
+
+post "/action" do
+  Blog::PostManager.manage_post(params)
+  redirect '/'
+end
+
+def post_form_action(params)
+  @form = Blog::PostForm.new(params)
+  erb :post_form
+end
+
 def posts_html
   @posts.empty? ? instructions_body : posts_body
 end
