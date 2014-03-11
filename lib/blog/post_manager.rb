@@ -33,9 +33,10 @@ module Blog
     end
 
     def self.edit_post(params)
+      id = params[:id]
       title = params[:title]
       body = params[:body]
-      DBAdapter.edit_post(title: title, body: body)
+      DBAdapter.edit_post(id, { title: title, body: body })
     end
 
     def self.no_id?(id)

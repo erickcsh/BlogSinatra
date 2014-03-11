@@ -21,7 +21,7 @@ describe Blog::PostManager, ".manage_post" do
       let(:params) { { id: AN_ID, action: SAVE, title: ANOTHER_TITLE, body: ANOTHER_BODY} }
 
       it "edits a post" do
-        expect(Blog::DBAdapter).to receive(:edit_post).with(NEW_VALUES)
+        expect(Blog::DBAdapter).to receive(:edit_post).with(AN_ID, NEW_VALUES)
       end
     end
   end
