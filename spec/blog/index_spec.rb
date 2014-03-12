@@ -1,50 +1,30 @@
 require_relative '../spec_helper'
 require 'constants'
 
-describe "Index page" do
-  before { allow(Blog::DBAdapter).to receive(:find_all_posts_ordered_by) { posts } }
+feature "Visitor enters the Homepage" do
 
-  context "when there are no posts" do
-    let(:posts) { [] }
-
-    it "displays the Instructions post" do
-      get '/'
-      expect(last_response.body).to include(INSTRUCTIONS_POST_SLICE)
-    end
-
-    it "displays the Instructions sidebar" do
-      get '/'
-      expect(last_response.body).to include(INSTRUCTIONS_SIDEBAR_SLICE)
-    end
+  scenario "there are no posts" do
+    visit '/'
+    expect(page).to have_content 'Instructions'
   end
 
-  context "when there are posts" do
-    let(:post) { double(:post, id: AN_ID, title: A_TITLE, body: A_BODY, created_at: A_DATE) }
-    let(:posts) { [post] }
+  scenario "clicks the instructions link" do
+    visit '/'
+    find_link('Instructions')[:href].should == '#instructions'
+  end
 
-    it "hides the post id" do
-      get '/'
-      expect(last_response.body).to include(POST_SILCE_ID)
-    end
+  scenario "when there are posts" do
+    post = Blog::DBAdapter.find_post_by_id(Blog::DBAdapter.new_post(A_TITLE, A_BODY))
+    visit '/'
+    find('input')[:value].should == "#{post.id}"
+    expect(page).to have_content post.title
+    expect(page).to have_content post.body
+    expect(page).to have_content post.created_at
+  end
 
-    it "shows the post title" do
-      get '/'
-      expect(last_response.body).to include(POST_SLICE_TITLE)
-    end
-
-    it "shows the post body" do
-      get '/'
-      expect(last_response.body).to include(POST_SLICE_BODY)
-    end
-
-    it "shows the post date" do
-      get '/'
-      expect(last_response.body).to include(POST_SLICE_DATE)
-    end
-
-    it "shows the post sidebar" do
-      get '/'
-      expect(last_response.body).to include(POST_SIDEBAR_SLICE)
-    end
+  scenario "clicks the post link" do
+    post = Blog::DBAdapter.find_post_by_id(Blog::DBAdapter.new_post(A_TITLE, A_BODY))
+    visit '/'
+    find_link("#{post.title}")[:href].should == "##{post.id}"
   end
 end

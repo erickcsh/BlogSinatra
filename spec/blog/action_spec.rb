@@ -11,4 +11,10 @@ describe "Action page" do
     expect(Blog::PostManager).to receive(:manage_post)
     post "/action"
   end
+
+  it "redirects to home path" do
+    post "/action"
+    last_response.should be_redirect
+    last_response.location.should include '/'
+  end
 end

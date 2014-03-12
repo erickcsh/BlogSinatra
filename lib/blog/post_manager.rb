@@ -19,9 +19,7 @@ module Blog
     end
 
     def self.save(params)
-      if no_id?(params[:id]) then new_post(params)
-      else edit_post(params)
-      end
+      id?(params[:id]) ? edit_post(params) : new_post(params)
     end
 
     def self.save_action?(params)
@@ -39,8 +37,8 @@ module Blog
       DBAdapter.edit_post(id, { title: title, body: body })
     end
 
-    def self.no_id?(id)
-      id == '' || id == nil
+    def self.id?(id)
+      id != '' && id != nil
     end
   end
 end

@@ -1,57 +1,23 @@
 require_relative '../spec_helper'
 require 'constants'
 
-describe "Post Form page" do
-  context "when editing a post" do
-    before do
-      @id = Blog::DBAdapter.new_post(A_TITLE, A_BODY)
-    end
-
-    after do
-      Blog::DBAdapter.delete_post(@id)
-    end
-
-    let(:params) { { 'id' => @id } }
-    it "hides the post id" do
-      post "/post", params
-      expect(last_response.body).to include('<input type="hidden" name="id" value="' + "#{@id}" + '"/>')
-    end
-
-    it "shows the 'Edit' title" do
-      post "/post", params
-      expect(last_response.body).to include('<h2>Edit</h2>')
-    end
-
-    it "shows the post title" do
-      post "/post", params
-      expect(last_response.body).to include('<input id="name" type="text" name="title" value="' + "#{A_TITLE}" + '"/>')
-    end
-
-    it "shows the post body" do
-      post "/post", params
-      expect(last_response.body).to include('<textarea id="content" name="body">' + "#{A_BODY}" + '</textarea>')
-    end
+feature "Visitor gets to the post form page" do
+  scenario "editing a post" do
+    post = Blog::DBAdapter.find_post_by_id(Blog::DBAdapter.new_post(A_TITLE, A_BODY))
+    visit '/'
+    click_button('Edit')
+    find(:xpath,'//input[@type="hidden"]')[:value].should == "#{post.id}"
+    find('#name')[:value].should == "#{post.title}"
+    expect(page).to have_content post.body
+    expect(page).to have_content 'Edit'
   end
 
-  context "when adding a post" do
-    it "hides the '' id" do
-      post "/post"
-      expect(last_response.body).to include('<input type="hidden" name="id" value=""/>')
-    end
-
-    it "shows the 'New' title" do
-      post "/post"
-      expect(last_response.body).to include('<h2>New</h2>')
-    end
-
-    it "shows the '' title" do
-      post "/post"
-      expect(last_response.body).to include('<input id="name" type="text" name="title" value=""/>')
-    end
-
-    it "shows the 'Content here...' body" do
-      post "/post"
-      expect(last_response.body).to include('<textarea id="content" name="body">Content here...</textarea>')
-    end
+  scenario "adding a post" do
+    visit '/'
+    click_button('New')
+    find(:xpath,'//input[@type="hidden"]')[:value].should == ""
+    find('#name')[:value].should == ""
+    expect(page).to have_content 'Content here...'
+    expect(page).to have_content 'New'
   end
 end

@@ -4,12 +4,10 @@ require 'blog'
 describe Blog::PostManager, ".manage_post" do
   subject { described_class }
 
-  context "when action = #{SAVE}" do
+  context "when action is Save" do
     let(:params) { { id: EMPTY_ID, action: SAVE, title: A_TITLE, body: A_BODY} }
 
-    after do
-      subject.manage_post(params)
-    end
+    after { subject.manage_post(params) }
 
     context "when the post is being created" do
       it "creates a new post in the DB" do
@@ -26,7 +24,7 @@ describe Blog::PostManager, ".manage_post" do
     end
   end
 
-  context "when action = #{CANCEL}" do
+  context "when action is Cancel" do
     let(:params) { { action: CANCEL } }
 
     it "does nothing" do
@@ -34,7 +32,7 @@ describe Blog::PostManager, ".manage_post" do
     end
   end
 
-  context "when action = #{DELETE}" do
+  context "when action is Delete" do
     let(:params) { { action: DELETE, id: AN_ID } }
 
     it "deletes the post" do
